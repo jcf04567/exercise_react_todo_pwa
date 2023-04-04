@@ -3,17 +3,33 @@ import * as Api from "../service/api";
 import { signInWithGoogle } from "../service/firebase";
 import dig from "object-dig";
 import { AuthContext } from "../providers/AuthProvider";
-
+import ToDoList from "./TodoList";
 
 const Dashboard = () => {
   const currentUser = useContext(AuthContext);
   const [inputName, setInputName] = useState("");
+  const [todos, setTodos] = useState([]);
   console.log(inputName);
+  console.log(todos);
 
-  const post = () => {
-    Api.addToDo(inputName, currentUser.currentUser.uid);
-    setInputName("");
+useEffect(() => {
+  // ToDo一覧を取得
+  fetch(currentUser);
+},[currentUser]);
+
+const fetch = async (currentUser) => {
+  if( dig(currentUser, 'currentUser', 'uid')) {
+    const data = await Api.initGet(currentUser.currentUser.uid);
+    // await setTodos(data);
+    setTodos(data);
   }
+}
+
+const post = () => {
+  Api.addToDo(inputName, currentUser.currentUser.uid);
+  setInputName("");
+  fetch(currentUser);
+}
 
   return(
     <div>
@@ -24,6 +40,7 @@ const Dashboard = () => {
       </form>
       :
       <button onClick={signInWithGoogle}>ログイン</button>}
+      <ToDoList todos={todos} fetch={fetch} />
     </div>
   );
 }
