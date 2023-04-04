@@ -17,7 +17,7 @@ useEffect(() => {
   fetch(currentUser);
 },[currentUser]);
 
-const fetch = async (currentUser) => {
+const fetch = async () => {
   if( dig(currentUser, 'currentUser', 'uid')) {
     const data = await Api.initGet(currentUser.currentUser.uid);
     // await setTodos(data);
@@ -28,7 +28,7 @@ const fetch = async (currentUser) => {
 const post = () => {
   Api.addToDo(inputName, currentUser.currentUser.uid);
   setInputName("");
-  fetch(currentUser);
+  fetch();
 }
 
   return(

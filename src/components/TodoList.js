@@ -10,7 +10,7 @@ function ToDoList(props) {
   const deleteHandle = async(id) => {
     await Api.todoDelete(id);
 
-    props.fetch(currentUser);
+    props.fetch();
   }
 
   //propsを元にliタグを作成
