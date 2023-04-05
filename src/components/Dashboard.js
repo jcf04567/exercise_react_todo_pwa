@@ -9,8 +9,8 @@ const Dashboard = () => {
   const currentUser = useContext(AuthContext);
   const [inputName, setInputName] = useState("");
   const [todos, setTodos] = useState([]);
-  console.log(inputName);
-  console.log(todos);
+  // console.log(inputName);
+  // console.log(todos);
 
 useEffect(() => {
   // ToDo一覧を取得
