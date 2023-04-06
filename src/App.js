@@ -4,6 +4,7 @@ import './service/firebase';
 import Header from './components/Header';
 import AuthProvider from './providers/AuthProvider';
 import Dashboard from './components/Dashboard';
+import Footer from './components/Footer';
 
 function App() {
   const [value, setValue] = useState([]);
@@ -11,7 +12,7 @@ function App() {
     <AuthProvider>
       <Header/>
       <Dashboard />
-      フッター
+      <Footer />
     </AuthProvider>
   );
 }

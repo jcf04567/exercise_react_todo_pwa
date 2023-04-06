@@ -13,6 +13,9 @@ import Button from "@material-ui/core/Button";
 const useStyles = makeStyles(() => ({
   toolbar: {
     justifyContent: 'space-between',
+  },
+  button: {
+    color: '#fff'
   }
 }));
 
@@ -27,8 +30,8 @@ const Header = () => {
           ReactToDo
         </Typography>
         {dig(currentUser, 'currentUser', 'uid') ?
-          <button onClick={logOut}>ログアウト</button> :
-          <button onClick={signInWithGoogle}>ログイン</button>
+          <Button className={classes.button} variant='text' onClick={logOut}>ログアウト</Button> :
+          <Button className={classes.button} variant='text' onClick={signInWithGoogle}>ログイン</Button>
         }
       </Toolbar>
     </AppBar>

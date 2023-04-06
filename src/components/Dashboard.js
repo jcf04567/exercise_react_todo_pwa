@@ -1,11 +1,33 @@
 import React, {useState, useEffect, useContext} from "react";
 import * as Api from "../service/api";
+import { TextField, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import { signInWithGoogle } from "../service/firebase";
 import dig from "object-dig";
 import { AuthContext } from "../providers/AuthProvider";
 import ToDoList from "./TodoList";
 
+const useStyles = makeStyles(() => ({
+  root: {
+    textAlign: 'center',
+    marginTop: 40,
+  },
+  form: {
+    width: "100%",
+    maxWidth: 360,
+    margin: "auto",
+    marginBottom:40,
+    display: "flex",
+    alignItems: "baseline",
+    justifyContent: "center",
+  },
+  input: {
+    marginRight: 10,
+  }
+}));
+
 const Dashboard = () => {
+  const classes = useStyles();
   const currentUser = useContext(AuthContext);
   const [inputName, setInputName] = useState("");
   const [todos, setTodos] = useState([]);
@@ -32,11 +54,18 @@ const post = () => {
 }
 
   return(
-    <div>
+    <div className={classes.root}>
       {dig(currentUser,'currentUser','uid') ?
-      <form>
-        <input placeholder="ToDoName" value={inputName} onChange={event => setInputName(event.currentTarget.value)} />
-        <button type="button" onClick={() => post()}>追加</button>
+      <form className={classes.form}>
+        <TextField className={classes.input} placeholder="ToDoName" value={inputName} onChange={event => setInputName(event.currentTarget.value)} />
+        <Button variant="contained"
+                color="primary"
+                size="small"
+                disabled={inputName.length > 0 ? false :true}
+                type="button"
+                onClick={() => post()}>
+                  追加
+        </Button>
       </form>
       :
       <button onClick={signInWithGoogle}>ログイン</button>}
